@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PaymentInformation from './PaymentInformation';
+import CreditAgreementApi from './api/CreditAgreementApi'
 
 const Card = styled.div`
     display: flex;
@@ -28,12 +29,21 @@ const Select = styled.select`
     width: 100%;
 `;
 
-const PaymentOptions = () => {
+const PaymentOptions = ({ totalPrice }) => {
     const [showPaymentInfo, setShowPaymentInfo] = useState(false);
+    const [creditAgreement, setCreditAgreement] = useState([]);
+    const [fee, setFee] = useState();
 
     const handleClose = () => {
         setShowPaymentInfo(false);
     }
+
+    useEffect(() => {
+        CreditAgreementApi.getPaymentOptions(totalPrice.replace(',', '')).then((response) => {
+            setCreditAgreement(response);
+            setFee(response[0].instalment_fee.string);
+        });
+    }, [totalPrice])
 
     return (
         <Card>
@@ -47,10 +57,12 @@ const PaymentOptions = () => {
             </Header>
             <Content>
                 <Select>
-                    <option>3 cuotas de 3e/mes</option>
+                    {creditAgreement.map((x, index) => (
+                        <option key={index} value={x.instalment_count}>{x.instalment_count} cuotas de {x.instalment_total.string}/mes</option>
+                    ))}
                 </Select>
             </Content>
-            <PaymentInformation show={showPaymentInfo} fee={5} handleClose={() => { handleClose() }}>
+            <PaymentInformation show={showPaymentInfo} fee={fee} handleClose={() => { handleClose() }}>
             </PaymentInformation>
         </Card>
     );

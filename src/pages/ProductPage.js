@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import PaymentOptions from './PaymentOptions';
-
 class ProductPage extends Component {
+
+  constructor() {
+    super();
+    this.price = "399,99";
+  }
+
   jqueryCode = () => {
     $(document).ready(function () {
       $("ul.menu-items > li").on("click", function () {
@@ -16,6 +21,7 @@ class ProductPage extends Component {
         $("." + clase).removeClass("active");
         $(this).addClass("active");
         $("#product-price").html($(this).attr("data-price"));
+        this.price = $(this).attr("data-price");
       });
 
       $(".btn-minus").on("click", function () {
@@ -44,6 +50,7 @@ class ProductPage extends Component {
   componentDidMount() {
     this.jqueryCode();
   }
+
 
   render() {
     return (
@@ -80,7 +87,7 @@ class ProductPage extends Component {
                 <small>PRECIO OFERTA</small>
               </h6>
               <h3 id="product-price" style={{ marginTop: 0 }}>
-                399,99 €
+                {this.price} €
               </h3>
               {/* Detalles especificos del producto */}
               <div className="section">
@@ -132,7 +139,7 @@ class ProductPage extends Component {
                   />{" "}
                   Agregar al carro
                 </button>
-                <PaymentOptions></PaymentOptions>
+                <PaymentOptions totalPrice={this.price}></PaymentOptions>
                 <h6>
                   <a href="#">
                     <span
