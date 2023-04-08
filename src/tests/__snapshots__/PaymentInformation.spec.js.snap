@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot test 1`] = `
+<div
+  className="PaymentInformation__Wrapper-sc-v57oa-0 eJnVdH"
+>
+  <div
+    className="PaymentInformation__Header-sc-v57oa-1 jajfuj"
+  >
+    <div>
+      Fracciona tu pago
+    </div>
+    <div
+      className="PaymentInformation__Close-sc-v57oa-2 kPXJIx"
+      onClick={[Function]}
+    >
+      x
+    </div>
+  </div>
+  <div
+    className="PaymentInformation__Content-sc-v57oa-3 ivrCRD"
+  >
+    <p>
+      1. Eliges "Fraciona tu pago" al realizar tu pedido y pagas sólo la primera cuota.
+    </p>
+    <p>
+      2. Recibes tu pedido
+    </p>
+    <p>
+      3. El resto de pagos se cargarán automáticamente en tu tarjeta.
+    </p>
+  </div>
+  <div
+    className="PaymentInformation__Footer-sc-v57oa-4 kshnVR"
+  >
+    <strong>
+      ¡Así de simple!
+    </strong>
+    <div>
+      Además, en el importe mostrado ya se incluye la cuota única mensual de 
+      5 e
+      /mes, por lo que no tendrás ninguna sorpresa.
+    </div>
+  </div>
+</div>
+`;
