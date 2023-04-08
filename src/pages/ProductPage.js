@@ -5,10 +5,19 @@ class ProductPage extends Component {
 
   constructor() {
     super();
-    this.price = "399,99";
+    this.state = { price: "399,99" };
   }
 
+
+
+
   jqueryCode = () => {
+    const setPrice = (price) => {
+      this.setState({
+        price: price
+      });
+    }
+
     $(document).ready(function () {
       $("ul.menu-items > li").on("click", function () {
         $("ul.menu-items > li").removeClass("active");
@@ -21,7 +30,7 @@ class ProductPage extends Component {
         $("." + clase).removeClass("active");
         $(this).addClass("active");
         $("#product-price").html($(this).attr("data-price"));
-        this.price = $(this).attr("data-price");
+        setPrice($(this).attr("data-price"));
       });
 
       $(".btn-minus").on("click", function () {
@@ -87,7 +96,7 @@ class ProductPage extends Component {
                 <small>PRECIO OFERTA</small>
               </h6>
               <h3 id="product-price" style={{ marginTop: 0 }}>
-                {this.price} €
+                {this.state.price} €
               </h3>
               {/* Detalles especificos del producto */}
               <div className="section">
@@ -139,7 +148,7 @@ class ProductPage extends Component {
                   />{" "}
                   Agregar al carro
                 </button>
-                <PaymentOptions totalPrice={this.price}></PaymentOptions>
+                <PaymentOptions totalPrice={this.state.price}></PaymentOptions>
                 <h6>
                   <a href="#">
                     <span
