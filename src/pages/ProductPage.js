@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
+import PaymentOptions from './PaymentOptions';
 
 class ProductPage extends Component {
   jqueryCode = () => {
@@ -131,6 +132,7 @@ class ProductPage extends Component {
                   />{" "}
                   Agregar al carro
                 </button>
+                <PaymentOptions></PaymentOptions>
                 <h6>
                   <a href="#">
                     <span
