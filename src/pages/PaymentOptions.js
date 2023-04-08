@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import PaymentInformation from './PaymentInformation';
 import CreditAgreementApi from './api/CreditAgreementApi'
+import EventsApi from './api/EventsApi';
 
 const Card = styled.div`
     display: flex;
@@ -34,16 +35,20 @@ const PaymentOptions = ({ totalPrice }) => {
     const [creditAgreement, setCreditAgreement] = useState([]);
     const [fee, setFee] = useState();
 
-    const handleClose = () => {
-        setShowPaymentInfo(false);
-    }
-
     useEffect(() => {
         CreditAgreementApi.getPaymentOptions(totalPrice.replace(',', '')).then((response) => {
             setCreditAgreement(response);
             setFee(response[0].instalment_fee.string);
         });
     }, [totalPrice])
+
+    const handleClose = () => {
+        setShowPaymentInfo(false);
+    }
+
+    const handleTrackEvent = (event) => {
+        EventsApi.trackSelectedInstalment("checkoutWidget", "simulatorInstalmentChanged", event.target.value);
+    }
 
     return (
         <Card>
@@ -56,7 +61,7 @@ const PaymentOptions = ({ totalPrice }) => {
                 </Link>
             </Header>
             <Content>
-                <Select>
+                <Select onChange={handleTrackEvent}>
                     {creditAgreement.map((x, index) => (
                         <option key={index} value={x.instalment_count}>{x.instalment_count} cuotas de {x.instalment_total.string}/mes</option>
                     ))}
