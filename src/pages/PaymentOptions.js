@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { useState } from 'react';
+import PaymentInformation from './PaymentInformation';
 
 const Card = styled.div`
     display: flex;
@@ -27,6 +29,11 @@ const Select = styled.select`
 `;
 
 const PaymentOptions = () => {
+    const [showPaymentInfo, setShowPaymentInfo] = useState(false);
+
+    const handleClose = () => {
+        setShowPaymentInfo(false);
+    }
 
     return (
         <Card>
@@ -34,7 +41,7 @@ const PaymentOptions = () => {
                 <div>
                     Págalo en:
                 </div>
-                <Link>
+                <Link onClick={() => { setShowPaymentInfo(true) }}>
                     más info
                 </Link>
             </Header>
@@ -43,6 +50,8 @@ const PaymentOptions = () => {
                     <option>3 cuotas de 3e/mes</option>
                 </Select>
             </Content>
+            <PaymentInformation show={showPaymentInfo} fee={5} handleClose={() => { handleClose() }}>
+            </PaymentInformation>
         </Card>
     );
 }
